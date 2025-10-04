@@ -8,14 +8,6 @@ World Explorer is a full-stack application that lets users explore countries, di
 
 ---
 
-## Features  
-- Retrieve country information (`GET /countries`, `GET /countries/:code`)  
-- Retrieve events by location/date (`GET /events`, `GET /events/:id`)  
-- Retrieve itineraries (`GET /itineraries`, `GET /itineraries/:id`)  
-- Basic user listing (admin-guarded `GET /users`)  
-
----
-
 ## Tech Stack  
 - **Backend:** Node.js
 - **Frontend:** React 

@@ -1,0 +1,364 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "World Explorer API",
+    "version": "1.0.0",
+    "description": "CRUD for Countries, Events, Itineraries, and Users."
+  },
+  "servers": [
+    { "url": "http://localhost:4000" }
+  ],
+  "tags": [
+    { "name": "Countries", "description": "Country catalog endpoints" },
+    { "name": "Events", "description": "Event endpoints" },
+    { "name": "Itineraries", "description": "User itineraries" },
+    { "name": "Users (Admin)", "description": "Admin-only user management" }
+  ],
+  "paths": {
+    "/countries": {
+      "get": {
+        "tags": ["Countries"],
+        "summary": "List countries",
+        "responses": {
+          "200": { "description": "OK" },
+          "500": { "description": "Server error" }
+        }
+      },
+      "post": {
+        "tags": ["Countries"],
+        "summary": "Create country",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/Country" } }
+          }
+        },
+        "responses": {
+          "201": { "description": "Created" },
+          "400": { "description": "Validation error" },
+          "500": { "description": "Server error" }
+        }
+      }
+    },
+    "/countries/{code}": {
+      "get": {
+        "tags": ["Countries"],
+        "summary": "Get country by code",
+        "parameters": [
+          { "in": "path", "name": "code", "schema": { "type": "string" }, "required": true }
+        ],
+        "responses": {
+          "200": { "description": "OK" },
+          "404": { "description": "Not found" },
+          "500": { "description": "Server error" }
+        }
+      },
+      "put": {
+        "tags": ["Countries"],
+        "summary": "Update country by code",
+        "parameters": [
+          { "in": "path", "name": "code", "schema": { "type": "string" }, "required": true }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/Country" } }
+          }
+        },
+        "responses": {
+          "200": { "description": "Updated" },
+          "400": { "description": "Validation error" },
+          "404": { "description": "Not found" },
+          "500": { "description": "Server error" }
+        }
+      },
+      "delete": {
+        "tags": ["Countries"],
+        "summary": "Delete country by code",
+        "parameters": [
+          { "in": "path", "name": "code", "schema": { "type": "string" }, "required": true }
+        ],
+        "responses": {
+          "200": { "description": "Deleted" },
+          "404": { "description": "Not found" },
+          "500": { "description": "Server error" }
+        }
+      }
+    },
+
+    "/events": {
+      "get": {
+        "tags": ["Events"],
+        "summary": "List events",
+        "parameters": [
+          { "in": "query", "name": "countryCode", "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "OK" },
+          "500": { "description": "Server error" }
+        }
+      },
+      "post": {
+        "tags": ["Events"],
+        "summary": "Create event",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/Event" } }
+          }
+        },
+        "responses": {
+          "201": { "description": "Created" },
+          "400": { "description": "Validation error" },
+          "500": { "description": "Server error" }
+        }
+      }
+    },
+    "/events/{id}": {
+      "get": {
+        "tags": ["Events"],
+        "summary": "Get event by id",
+        "parameters": [
+          { "in": "path", "name": "id", "schema": { "type": "string" }, "required": true }
+        ],
+        "responses": {
+          "200": { "description": "OK" },
+          "404": { "description": "Not found" },
+          "500": { "description": "Server error" }
+        }
+      },
+      "put": {
+        "tags": ["Events"],
+        "summary": "Update event by id",
+        "parameters": [
+          { "in": "path", "name": "id", "schema": { "type": "string" }, "required": true }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/Event" } }
+          }
+        },
+        "responses": {
+          "200": { "description": "Updated" },
+          "400": { "description": "Validation error" },
+          "404": { "description": "Not found" },
+          "500": { "description": "Server error" }
+        }
+      },
+      "delete": {
+        "tags": ["Events"],
+        "summary": "Delete event by id",
+        "parameters": [
+          { "in": "path", "name": "id", "schema": { "type": "string" }, "required": true }
+        ],
+        "responses": {
+          "200": { "description": "Deleted" },
+          "404": { "description": "Not found" },
+          "500": { "description": "Server error" }
+        }
+      }
+    },
+
+    "/itineraries": {
+      "get": {
+        "tags": ["Itineraries"],
+        "summary": "List itineraries",
+        "parameters": [
+          { "in": "query", "name": "userEmail", "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "OK" },
+          "500": { "description": "Server error" }
+        }
+      },
+      "post": {
+        "tags": ["Itineraries"],
+        "summary": "Create itinerary",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/Itinerary" } }
+          }
+        },
+        "responses": {
+          "201": { "description": "Created" },
+          "400": { "description": "Validation error" },
+          "500": { "description": "Server error" }
+        }
+      }
+    },
+    "/itineraries/{id}": {
+      "get": {
+        "tags": ["Itineraries"],
+        "summary": "Get itinerary by id",
+        "parameters": [
+          { "in": "path", "name": "id", "schema": { "type": "string" }, "required": true }
+        ],
+        "responses": {
+          "200": { "description": "OK" },
+          "404": { "description": "Not found" },
+          "500": { "description": "Server error" }
+        }
+      },
+      "put": {
+        "tags": ["Itineraries"],
+        "summary": "Update itinerary by id",
+        "parameters": [
+          { "in": "path", "name": "id", "schema": { "type": "string" }, "required": true }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/Itinerary" } }
+          }
+        },
+        "responses": {
+          "200": { "description": "Updated" },
+          "400": { "description": "Validation error" },
+          "404": { "description": "Not found" },
+          "500": { "description": "Server error" }
+        }
+      },
+      "delete": {
+        "tags": ["Itineraries"],
+        "summary": "Delete itinerary by id",
+        "parameters": [
+          { "in": "path", "name": "id", "schema": { "type": "string" }, "required": true }
+        ],
+        "responses": {
+          "200": { "description": "Deleted" },
+          "404": { "description": "Not found" },
+          "500": { "description": "Server error" }
+        }
+      }
+    },
+
+    "/users": {
+      "get": {
+        "tags": ["Users (Admin)"],
+        "summary": "List users (admin)",
+        "responses": {
+          "200": { "description": "OK" },
+          "500": { "description": "Server error" }
+        }
+      },
+      "post": {
+        "tags": ["Users (Admin)"],
+        "summary": "Create user (admin)",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/User" } }
+          }
+        },
+        "responses": {
+          "201": { "description": "Created" },
+          "400": { "description": "Validation error" },
+          "500": { "description": "Server error" }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "tags": ["Users (Admin)"],
+        "summary": "Get user by id (admin)",
+        "parameters": [
+          { "in": "path", "name": "id", "schema": { "type": "string" }, "required": true }
+        ],
+        "responses": {
+          "200": { "description": "OK" },
+          "404": { "description": "Not found" },
+          "500": { "description": "Server error" }
+        }
+      },
+      "put": {
+        "tags": ["Users (Admin)"],
+        "summary": "Update user by id (admin)",
+        "parameters": [
+          { "in": "path", "name": "id", "schema": { "type": "string" }, "required": true }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/User" } }
+          }
+        },
+        "responses": {
+          "200": { "description": "Updated" },
+          "400": { "description": "Validation error" },
+          "404": { "description": "Not found" },
+          "500": { "description": "Server error" }
+        }
+      },
+      "delete": {
+        "tags": ["Users (Admin)"],
+        "summary": "Delete user by id (admin)",
+        "parameters": [
+          { "in": "path", "name": "id", "schema": { "type": "string" }, "required": true }
+        ],
+        "responses": {
+          "200": { "description": "Deleted" },
+          "404": { "description": "Not found" },
+          "500": { "description": "Server error" }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Country": {
+        "type": "object",
+        "required": ["code", "name"],
+        "properties": {
+          "code": { "type": "string", "example": "BR" },
+          "name": { "type": "string", "example": "Brazil" },
+          "region": { "type": "string", "example": "Americas" },
+          "capital": { "type": "string", "example": "Brasília" },
+          "language": { "type": "string", "example": "Portuguese" },
+          "currency": { "type": "string", "example": "BRL" }
+        }
+      },
+      "Event": {
+        "type": "object",
+        "required": ["title", "countryCode", "date"],
+        "properties": {
+          "title": { "type": "string", "example": "Rio Carnival" },
+          "description": { "type": "string", "example": "Festival in Rio" },
+          "countryCode": { "type": "string", "example": "BR" },
+          "location": { "type": "string", "example": "Rio de Janeiro" },
+          "date": { "type": "string", "format": "date-time", "example": "2025-02-20T00:00:00.000Z" }
+        }
+      },
+      "Itinerary": {
+        "type": "object",
+        "required": ["userEmail", "title"],
+        "properties": {
+          "userEmail": { "type": "string", "example": "caroline@example.com" },
+          "title": { "type": "string", "example": "Brazil Highlights" },
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "day": { "type": "integer", "example": 1 },
+                "note": { "type": "string", "example": "Arrive in Rio" },
+                "countryCode": { "type": "string", "example": "BR" },
+                "date": { "type": "string", "format": "date-time" }
+              }
+            }
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "required": ["name", "email"],
+        "properties": {
+          "name": { "type": "string", "example": "Caroline Pereira" },
+          "email": { "type": "string", "example": "caroline@example.com" },
+          "role": { "type": "string", "enum": ["user", "admin"], "example": "user" }
+        }
+      }
+    }
+  }
+}
