@@ -6,21 +6,32 @@ import {
   updateEvent,
   deleteEvent
 } from '../controllers/eventController.js';
+import { isAuthenticated } from '../middleware/auth.js';
 
 const router = Router();
 
 // This route will get all of the events and will filter by a parameter of the country code
-router.get('/', getEvents);
+router.get('/', isAuthenticated,
+  getEvents
+);
 
 // This route will get a single event by its id
-router.get('/:id', getEventById);
+router.get('/:id', isAuthenticated,
+  getEventById
+);
 
 // This route will create a new event
-router.post('/', createEvent);
+router.post('/', isAuthenticated,
+  createEvent
+);
 
 // This route will update an existing event by its id
-router.put('/:id', updateEvent);
+router.put('/:id', isAuthenticated,
+  updateEvent
+);
 
 // This route will delete an existing event by its id
-router.delete('/:id', deleteEvent);
+router.delete('/:id', isAuthenticated,
+  deleteEvent
+);
 export default router;
